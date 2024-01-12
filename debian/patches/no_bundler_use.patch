@@ -1,0 +1,56 @@
+Description: do not use bundler as per Ruby policy
+ .
+Author: Laszlo Boszormenyi (GCS) <gcs@debian.org>
+Bug-Debian: https://bugs.debian.org/804668
+Last-Update: 2019-10-23
+
+---
+
+--- a/lib/rb/Makefile.am
++++ b/lib/rb/Makefile.am
+@@ -22,20 +22,24 @@ DESTDIR ?= /
+ if HAVE_BUNDLER
+ 
+ all-local:
+-	$(BUNDLER) install
+-	$(BUNDLER) exec rake build_ext
++	echo Do not use bundler for all-local
++#	$(BUNDLER) install
++#	$(BUNDLER) exec rake build_ext
+ 
+ install-exec-hook:
+-	$(BUNDLER) exec rake install
++	echo Do not use bundler for install-exec-hook
++#	$(BUNDLER) exec rake install
+ 
+ clean-local:
+-	$(BUNDLER) install
+-	$(BUNDLER) exec rake clean
++	echo Do not use bundler for clean-local
++#	$(BUNDLER) install
++#	$(BUNDLER) exec rake clean
+ 	$(RM) -r spec/gen-rb/
+ 
+ check-local: all
+-	$(BUNDLER) install
+-	$(BUNDLER) exec rake
++	echo Do not use bundler for check-local
++#	$(BUNDLER) install
++#	$(BUNDLER) exec rake
+ 
+ endif
+ 
+--- a/test/rb/Makefile.am
++++ b/test/rb/Makefile.am
+@@ -26,8 +26,9 @@ precross: stubs
+ 
+ check: stubs
+ if HAVE_BUNDLER
+-	$(BUNDLER) install
+-	$(BUNDLER) exec $(RUBY) -I. test_suite.rb
++	echo Do not use bundler for check
++#	$(BUNDLER) install
++#	$(BUNDLER) exec $(RUBY) -I. test_suite.rb
+ endif
+ 
+ clean-local:

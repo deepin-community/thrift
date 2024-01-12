@@ -1,0 +1,40 @@
+Description: node is called nodejs in Debian
+ Use the proper binary name.
+Author: Laszlo Boszormenyi (GCS) <gcs@debian.org>
+Last-Update: 2019-10-23
+
+---
+
+--- a/lib/nodejs/test/testAll.sh
++++ b/lib/nodejs/test/testAll.sh
+@@ -45,7 +45,7 @@ testServer()
+     ${ISTANBUL} cover ${DIR}/server.js --dir ${REPORT_PREFIX}${COUNT} --handle-sigint -- --type $2 -p $3 -t $4 $5 &
+     COUNT=$((COUNT+1))
+   else
+-    node ${DIR}/server.js --${1} --type $2 -p $3 -t $4 $5 &
++    nodejs ${DIR}/server.js --${1} --type $2 -p $3 -t $4 $5 &
+   fi
+   SERVERPID=$!
+   sleep 0.1
+@@ -53,7 +53,7 @@ testServer()
+     ${ISTANBUL} cover ${DIR}/client.js --dir ${REPORT_PREFIX}${COUNT} -- --${1} --type $2 -p $3 -t $4 $5 || RET=1
+     COUNT=$((COUNT+1))
+   else
+-    node ${DIR}/client.js --${1} --type $2 -p $3 -t $4 $5 || RET=1
++    nodejs ${DIR}/client.js --${1} --type $2 -p $3 -t $4 $5 || RET=1
+   fi
+   kill -2 $SERVERPID || RET=1
+   wait $SERVERPID
+@@ -117,9 +117,9 @@ fi
+ 
+ # unit tests
+ 
+-node ${DIR}/binary.test.js || TESTOK=1
+-node ${DIR}/int64.test.js || TESTOK=1
+-node ${DIR}/deep-constructor.test.js || TESTOK=1
++nodejs ${DIR}/binary.test.js || TESTOK=1
++nodejs ${DIR}/int64.test.js || TESTOK=1
++nodejs ${DIR}/deep-constructor.test.js || TESTOK=1
+ 
+ # integration tests
+ 

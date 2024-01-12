@@ -1,0 +1,8 @@
+Document: libthrift-java-doc
+Title: Programmer API for Thrift Java support
+Author: Apache Software Foundation
+Section: Programming
+
+Format: HTML
+Index: /usr/share/doc/thrift/java/index.html
+Files: /usr/share/doc/thrift/java/*

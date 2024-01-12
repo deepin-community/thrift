@@ -1,0 +1,18 @@
+Description: run simple Go test only
+ Race testing is available on amd64, ppc64le and arm64 only.
+Author: Laszlo Boszormenyi (GCS) <gcs@debian.org>
+Last-Update: 2023-07-05
+
+---
+
+--- a/lib/go/Makefile.am
++++ b/lib/go/Makefile.am
+@@ -40,7 +40,7 @@ install:
+ # https://github.com/golang/go/issues/52445 is fixed.
+ check-local:
+ 	$(GO) vet -stdmethods=false github.com/apache/thrift/lib/go/thrift
+-	$(GO) test -race ./thrift
++	$(GO) test ./thrift
+ 
+ clean-local:
+ 	$(RM) -rf pkg

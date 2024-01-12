@@ -1,5 +1,278 @@
-template-repository (1.0-1) unstable; urgency=medium
+thrift (0.19.0-2) unstable; urgency=medium
 
-  * Initial release
+  * Upload to Sid.
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 17 Sep 2023 13:13:50 +0000
+
+thrift (0.19.0-1) experimental; urgency=medium
+
+  * New major upstream release.
+  * Rename related packages to -0.19.0 suffix.
+  * Disable failing GLib tests until upstream fixes those (closes: #1042025).
+  * Make sure even i386 uses double variable type for GLib testing.
+  * Make golang-thrift-dev architecture independent (closes: #981860).
+  * Update Standards-Version to 4.6.2 .
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Mon, 04 Sep 2023 11:45:59 +0000
+
+thrift (0.18.1-2) experimental; urgency=medium
+
+  * Run Go tests without non-portable race detector.
+  * Update watch file.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Wed, 05 Jul 2023 20:19:58 +0200
+
+thrift (0.18.1-1) experimental; urgency=medium
+
+  * New major upstream release.
+  * Rename related packages to -0.18.1 suffix.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 18 Jun 2023 02:44:09 +0200
+
+thrift (0.17.0-2) unstable; urgency=medium
+
+  * Upload to Sid.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Wed, 28 Sep 2022 19:05:02 +0200
+
+thrift (0.17.0-1) experimental; urgency=medium
+
+  * New major upstream release.
+  * Rename related packages to -0.17.0 suffix.
+  * Update debhelper level to 13 .
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Thu, 22 Sep 2022 22:21:38 +0200
+
+thrift (0.16.0-7) unstable; urgency=medium
+
+  * Don't remove generated config.h files (closes: #1019182).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Tue, 13 Sep 2022 20:24:02 +0200
+
+thrift (0.16.0-6) unstable; urgency=medium
+
+  * Replace outdated TLS test keys (closes: #1010120, #1015049).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 28 Aug 2022 12:41:21 +0200
+
+thrift (0.16.0-5) unstable; urgency=medium
+
+  * Disable IPv4 tests for not working on IPv6 only hosts (closes: #1011011).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 15 May 2022 14:42:11 +0200
+
+thrift (0.16.0-4) unstable; urgency=medium
+
+  * Specify libs as section for libthrift-0.16.0 .
+  * Backport upstream fix for out of memory when use TNonblockingServer.
+  * Backport upstream fix THRIFT-5449: use poll instead of select in Python
+    TNonblockingServer if available.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Tue, 26 Apr 2022 17:14:22 +0200
+
+thrift (0.16.0-3) unstable; urgency=medium
+
+  * Upload to Sid.
+  * This release contains fix for Python 3.10 (closes: #1008810).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Tue, 19 Apr 2022 17:08:21 +0200
+
+thrift (0.16.0-2) experimental; urgency=medium
+
+  * Run Go tests without non-portable race detector.
+  * Disable tests that seem to be incompatible with newer GLib versions.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Fri, 01 Apr 2022 17:14:34 +0200
+
+thrift (0.16.0-1) experimental; urgency=medium
+
+  * New major upstream release (closes: #1008458):
+    - fixes CVE-2020-13949: potential DoS when processing untrusted payloads
+      (closes: #988949).
+  * Rename related packages to -0.16.0 suffix.
+
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Mon, 28 Mar 2022 01:34:46 +0200
+
+thrift (0.13.0-7) unstable; urgency=medium
+
+  * Remove python3-thrift-dbg package (closes: #994384).
+  * Update Standards-Version to 4.6.0 .
+  * Sync with Ubuntu.
+
+  [ Lucas Kanashiro <kanashiro@ubuntu.com> ]
+  * d/p/THRIFT-5318_support_php8.patch: Backport upstream patch to add support
+    for PHP 8 (LP: #1940473).
+  * d/rules: export GO111MODULE=off, this will make go.mod file not mandatory.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Fri, 24 Sep 2021 17:18:04 +0200
+
+thrift (0.13.0-6) unstable; urgency=medium
+
+  * Backport upstream fix for THRIFT-5322: Go compact_protocol allocating
+    unreasonable buffer size.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 14 Feb 2021 19:50:04 +0100
+
+thrift (0.13.0-5) unstable; urgency=medium
+
+  * Update Standards-Version to 4.5.0 .
+
+  [ Adrian Bunk <bunk@debian.org> ]
+  * Link with libatomic on ARMel and MIPSel (closes: #972948).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Mon, 26 Oct 2020 18:01:44 +0100
+
+thrift (0.13.0-4) unstable; urgency=medium
+
+  * Add XS-Go-Import-Path field.
+  * Correct installed Go source files location.
+  * Update supported Ruby version (closes: #950742).
+  * Remove unneeded composer build dependency (closes: #970587).
+  * Don't remove needed config.h header (closes: #972225).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Thu, 15 Oct 2020 17:07:25 +0200
+
+thrift (0.13.0-3) unstable; urgency=medium
+
+  * Backport upstream fix for wrong int to string conversions in Go testing
+    (closes: #971192).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 27 Sep 2020 21:31:25 +0200
+
+thrift (0.13.0-2) unstable; urgency=medium
+
+  * Link C++ tests with atomic.
+  * Upload to Sid.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 08 Dec 2019 12:24:18 +0000
+
+thrift (0.13.0-1) experimental; urgency=high
+
+  * New major upstream release:
+    - fixes CVE-2019-0205: endless loop when feed with specific input data,
+    - fixes CVE-2019-0210: Go server may panic when feed with invalid input
+      data,
+    - removed compiler plug-in mechanism (closes: #942337).
+  * Rework upstream distclean process (closes: #943653).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 01 Dec 2019 10:46:55 +0000
+
+thrift (0.12.0-1) experimental; urgency=medium
+
+  * New major upstream release.
+  * Rename related packages to -0.12.0 suffix.
+  * Remove Python 2 bindings (closes: #938662).
+  * Update debhelper level to 11 .
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sat, 05 Oct 2019 08:58:11 +0000
+
+thrift (0.11.0-6) unstable; urgency=medium
+
+  * Update copyright file (closes: #935713).
+  * Update Python packaging bits (closes: #935715).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 25 Aug 2019 19:18:04 +0000
+
+thrift (0.11.0-5) experimental; urgency=medium
+
+  * Fix Python 3 packaging.
+  * Sync with Ubuntu.
+  * Update Standards-Version to 4.4.0 .
+
+  [ Adam Cecile <acecile@le-vert.net> ]
+  * Build python3 package (closes: #913724).
+
+  [ Gianfranco Costamagna <locutusofborg@debian.org> ]
+  * Export HOME to make the build happy (closes: #935620).
+  * Fix another failure due to new go with upstream patch.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sat, 24 Aug 2019 15:47:34 +0000
+
+thrift (0.11.0-4) unstable; urgency=medium
+
+  * Backport upstream security fix for CVE-2018-11798: Node.js Filesever
+    webroot fixed path (closes: #918734).
+  * Update Standards-Version to 4.3.0 .
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Tue, 08 Jan 2019 21:31:07 +0000
+
+thrift (0.11.0-3) unstable; urgency=medium
+
+  * Build with latest PHP package version.
+  * Provide PHP package without version number.
+  * Upload to Sid (closes: #835294).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sat, 27 Oct 2018 20:57:18 +0000
+
+thrift (0.11.0-2) experimental; urgency=medium
+
+  * Disable failing Python self-tests to fix mips and s390x FTBFS.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Fri, 12 Oct 2018 00:12:09 +0000
+
+thrift (0.11.0-1) experimental; urgency=medium
+
+  * New major upstream release.
+  * Fixes  CVE-2016-5397: command injection in format_go_output
+    (closes: #894577).
+  * Fix FTBFS problems (closes: #909067).
+  * Rename related packages to -0.11.0 suffix.
+  * Build with PHP 7.2 version.
+  * Remove libmaven-ant-tasks-java build dependency (closes: #877126).
+  * Update patches.
+  * Use auto-generated debug packages.
+  * Change package priority to optional.
+  * Update Standards-Version to 4.2.1 .
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Thu, 20 Sep 2018 18:16:39 +0000
+
+thrift (0.10.0-1) experimental; urgency=low
+
+  * New upstream release.
+  * Rename related packages to -0.10.0 suffix.
+  * Correct Perl install directory (closes: #859128).
+  * Fix building with Boost 1.62 version.
+  * Only build Go bindings on supported architectures.
+  * Add python{,3}-six build dependency for testing support.
+  * Disable failing TSimpleServer testing for Python.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sat, 13 May 2017 08:15:21 +0000
+
+thrift (0.9.3-2) experimental; urgency=low
+
+  * Build Go bindings.
+  * Update to build with Java Servlet API 3.1 .
+  * Fix build with GCC 6.2 .
+  * Fix build with Boost 1.61 .
+  * Update Standards-Version to 3.9.8 .
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 17 Jul 2016 19:31:46 +0000
+
+thrift (0.9.3-1) experimental; urgency=low
+
+  * New upstream release.
+  * Patch SSLv3 support to use SSLv23_method function (closes: #804668).
+  * Specify Qt version to build and move to version 5 of the library.
+  * This release contains TestValidators.thrift , remove its patch.
+  * Add debug package for Pyton bindings.
+  * Update OpenJDK build dependency to version 8.
+  * Update Perl build dependency.
+  * Update Standards-Version to 3.9.7 .
+  * Keep rebuildable.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sun, 20 Mar 2016 11:10:27 +0000
+
+thrift (0.9.2-2) experimental; urgency=low
+
+  * Specify openjdk-7-jdk to build with.
+  * Disable parallel testing.
+  * Update Boost build dependency to be version 1.58.0 at least.
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Mon, 03 Aug 2015 20:09:47 +0200
+
+thrift (0.9.2-1) experimental; urgency=low
+
+  * Use monolithic upstream source for Thrift packaging (closes: #792097).
+
+ -- Laszlo Boszormenyi (GCS) <gcs@debian.org>  Sat, 21 Mar 2015 17:45:29 +0000
