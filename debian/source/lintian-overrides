@@ -1,0 +1,8 @@
+# Long lines only
+source-is-missing [lib/js/test/phantom-client.js]
+source-is-missing [lib/js/test/test-async.js]
+source: source-is-missing [lib/js/test/test-es6.js]
+source: source-is-missing [lib/js/test/test.js]
+
+# Only one file, not the whole source
+license-problem-php-license debian/copyright

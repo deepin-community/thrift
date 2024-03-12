@@ -1,15 +1,192 @@
-Source: template-repository
-Section: unknown
+Source: thrift
+Section: devel
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Maintainer: Laszlo Boszormenyi (GCS) <gcs@debian.org>
+Build-Depends: debhelper-compat (= 13), dh-python,
+ dh-golang, golang-golang-x-net-dev,
+ gem2deb,
+ bison, flex,
+ libboost-all-dev, libevent-dev, zlib1g-dev,
+ libssl-dev,
+ libglib2.0-dev,
+ qtbase5-dev,
+ python3-all-dev, python3-six,
+ golang-go, golang-github-golang-mock-dev,
+ pkg-php-tools (>= 1.14~), php-dev, phpunit, php-codesniffer,
+ perl, libbit-vector-perl, libclass-accessor-perl, libtest-exception-perl,
+# openjdk-11-jdk, javahelper, maven-debian-helper (>= 1.5), ant (>= 1.7), ant-optional,
+# libhttpclient-java, libslf4j-java, libservlet3.1-java (>= 8),
+# nodejs, npm,
+ ruby-dev, ruby, bundler, rake,
+ ruby-daemons, ruby-diff-lcs, ruby-eventmachine, ruby-rspec-core,
+ ruby-rack, ruby-rack-test, ruby-rspec, ruby-rspec-expectations,
+ ruby-rspec-mocks, thin,
+# erlang-dev, erlang-eunit,
+# liblua5.2-dev,
+# google-mock
+Build-Conflicts: rustc
+Standards-Version: 4.6.2
+Homepage: https://thrift.apache.org/
+XS-Go-Import-Path: github.com/apache/thrift/lib/go/thrift
 
-Package: template-repository
+Package: libthrift-0.19.0
+Section: libs
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Thrift C++ library
+ Thrift is a software framework for the development of reliable and
+ performant communication and data serialization.  It combines a software
+ stack with code generation to build services that operate seamlessly
+ across a number of different development languages.
+ .
+ This package contains the runtime libraries needed for C++ applications
+ using Thrift.
+
+Package: libthrift-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libthrift-0.19.0 (= ${binary:Version}), ${misc:Depends}, pkg-config
+Description: Thrift C++ library (development headers)
+ Thrift is a software framework for the development of reliable and
+ performant communication and data serialization.  It combines a software
+ stack with code generation to build services that operate seamlessly
+ across a number of different development languages.
+ .
+ This package contains the development libraries required for writing C++
+ applications using Thrift.
+
+Package: libthrift-c-glib0
+Section: libs
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Thrift glib library
+ Thrift is a software framework for the development of reliable and
+ performant communication and data serialization.  It combines a software
+ stack with code generation to build services that operate seamlessly
+ across a number of different development languages.
+ .
+ This package contains the glib based runtime libraries needed for C
+ applications using Thrift.
+
+Package: libthrift-c-glib-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libthrift-c-glib0 (= ${binary:Version}), ${misc:Depends}, pkg-config
+Description: Thrift glib library (development headers)
+ Thrift is a software framework for the development of reliable and
+ performant communication and data serialization.  It combines a software
+ stack with code generation to build services that operate seamlessly
+ across a number of different development languages.
+ .
+ This package contains the development libraries required for writing glib
+ based C applications using Thrift.
+
+Package: thrift-compiler
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Conflicts: thrift-compiler (<= 0.9.1-2)
+Replaces: thrift-compiler (<= 0.9.1-2)
+Description: code generator/compiler for Thrift definitions
+ Thrift is a software framework for the development of reliable and
+ performant communication and data serialization.  It combines a software
+ stack with code generation to build services that operate seamlessly
+ across a number of different development languages.
+ .
+ This package contains the compiler used to generate language code from
+ Thrift definition files.
+
+Package: python3-thrift
+Section: python
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends}
+Provides: ${python3:Provides}
+Description: Python 3 library for Thrift
+ Thrift is a software framework for the development of reliable and
+ performant communication and data serialization. It combines a software
+ stack with a code generation to build services that operate seamlessly
+ across a number of different development languages.
+ .
+ This package provides the Python 3 bindings for Thrift.
+
+#Package: libthrift-java
+#Section: java
+#Architecture: all
+#Depends: ${java:Depends}, ${misc:Depends}
+#Conflicts: libthrift-java (<= 0.9.1-2)
+#Replaces: libthrift-java (<= 0.9.1-2)
+#Description: Java language support for Thrift
+# Thrift is a software framework for the development of reliable and
+# performant communication and data serialization. It combines a software
+# stack with code generation to build services that operate seamlessly
+# across a number of different development languages.
+# .
+# This package provides the Java language support for Thrift.
+#
+#Package: libthrift-java-doc
+#Architecture: all
+#Section: doc
+#Depends: ${misc:Depends}
+#Suggests: libthrift-java
+#Description: Java language support for Thrift - documentation
+# Thrift is a software framework for the development of reliable and
+# performant communication and data serialization. It combines a software
+# stack with code generation to build services that operate seamlessly
+# across a number of different development languages.
+# .
+# This package contains Javadoc HTML documentation for libthrift-java .
+#
+Package: php-thrift
+Section: php
+Architecture: any
+Depends: ${phpcomposer:Debian-require}, ${shlibs:Depends}, ${misc:Depends}
+Provides: ${php:Provides}
+Conflicts: php7.0-thrift, php7.2-thrift
+Replaces: php7.0-thrift, php7.2-thrift
+Description: PHP language support for Thrift
+ Thrift is a software framework for the development of reliable and
+ performant communication and data serialization. It combines a software
+ stack with code generation to build services that operate seamlessly
+ across a number of different development languages.
+ .
+ This package provides the PHP language support for Thrift.
+
+Package: libthrift-perl
+Section: perl
+Architecture: all
+Multi-Arch: foreign
+Depends: ${perl:Depends}, ${misc:Depends}
+Description: Perl language support for Thrift
+ Thrift is a software framework for the development of reliable and
+ performant communication and data serialization. It combines a software
+ stack with code generation to build services that operate seamlessly
+ across a number of different development languages.
+ .
+ This package provides the Perl language support for Thrift.
+
+Package: golang-thrift-dev
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Description: Go language support for Thrift
+ Thrift is a software framework for the development of reliable and
+ performant communication and data serialization. It combines a software
+ stack with code generation to build services that operate seamlessly
+ across a number of different development languages.
+ .
+ This package provides the Go language support for Thrift.
+#
+#Package: ruby-thrift
+#Section: libs
+#Architecture: any
+#Depends: ${shlibs:Depends}, ${misc:Depends}
+#Description: Ruby library for Thrift
+# Thrift is a software framework for the development of reliable and
+# performant communication and data serialization. It combines a software
+# stack with a code generation to build services that operate seamlessly
+# across a number of different development languages.
+# .
+# This package provides the Ruby bindings for Thrift.

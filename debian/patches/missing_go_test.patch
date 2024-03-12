@@ -1,0 +1,54 @@
+Description: can't use these
+ .
+Author: Laszlo Boszormenyi (GCS) <gcs@debian.org>
+Forwarded: no
+Last-Update: 2023-07-02
+
+---
+
+--- a/test/go/src/common/clientserver_test.go
++++ b/test/go/src/common/clientserver_test.go
+@@ -21,14 +21,10 @@ package common
+ 
+ import (
+ 	"context"
+-	"errors"
+-	"reflect"
+ 	"sync"
+ 	"testing"
+ 
+-	"github.com/golang/mock/gomock"
+ 
+-	"github.com/apache/thrift/lib/go/thrift"
+ 	"github.com/apache/thrift/test/go/src/gen/thrifttest"
+ )
+ 
+@@ -61,6 +57,7 @@ func TestAllConnection(t *testing.T) {
+ }
+ 
+ func doUnit(t *testing.T, unit *test_unit) {
++/*
+ 	ctrl := gomock.NewController(t)
+ 	defer ctrl.Finish()
+ 	handler := NewMockThriftTest(ctrl)
+@@ -84,6 +81,7 @@ func doUnit(t *testing.T, unit *test_uni
+ 	}
+ 	defer trans.Close()
+ 	callEverythingWithMock(t, client, handler)
++*/
+ }
+ 
+ var rmapmap = map[int32]map[int32]int32{
+@@ -101,6 +99,7 @@ var xxs = &thrifttest.Xtruct{
+ var xcept = &thrifttest.Xception{ErrorCode: 1001, Message: "some"}
+ var defaultCtx = context.Background()
+ 
++/*
+ func callEverythingWithMock(t *testing.T, client *thrifttest.ThriftTestClient, handler *MockThriftTest) {
+ 	u := thrift.Tuuid{
+ 		0x00, 0x11, 0x22, 0x33,
+@@ -352,3 +351,4 @@ func callEverythingWithMock(t *testing.T
+ 		t.Errorf("Unexpected error in TestVoid() call: %s", err)
+ 	}
+ }
++*/
