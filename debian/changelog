@@ -1,3 +1,11 @@
+thrift (0.19.0-2deepin1) unstable; urgency=medium
+
+  * with-php=no.
+  * with-php_extension=no.
+  * with-ruby=no.
+
+ -- Tianyu Chen <sweetyfish@deepin.org>  Tue, 12 Mar 2024 11:52:49 +0800
+
 thrift (0.19.0-2) unstable; urgency=medium
 
   * Upload to Sid.
