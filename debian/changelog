@@ -1,9 +1,25 @@
+thrift (0.19.0-2.1deepin1) unstable; urgency=medium
+
+  * with-php=no.
+  * with-php_extension=no.
+  * with-ruby=no.
+
+ -- LiChengGang <lichenggang@uniontech.com>  Fri, 20 Sep 2024 11:25:41 +0800
+
 thrift (0.19.0-2.1) unstable; urgency=medium
 
   * Non-maintainer upload.
   * Rename libraries for 64-bit time_t transition.  Closes: #1062981
 
  -- Benjamin Drung <bdrung@debian.org>  Thu, 29 Feb 2024 18:11:37 +0000
+
+thrift (0.19.0-2deepin1) unstable; urgency=medium
+
+  * with-php=no.
+  * with-php_extension=no.
+  * with-ruby=no.
+
+ -- Tianyu Chen <sweetyfish@deepin.org>  Tue, 12 Mar 2024 11:52:49 +0800
 
 thrift (0.19.0-2) unstable; urgency=medium
 
