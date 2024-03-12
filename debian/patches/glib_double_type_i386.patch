@@ -1,0 +1,36 @@
+Description: force double variable type for GLib testing for i386
+ GLib double testing fail on i386 probably due to its smaller variable width.
+ Make sure the numbers used as 'double' type.
+Author: Laszlo Boszormenyi (GCS) <gcs@debian.org>
+Forwarded: no
+Last-Update: 2023-09-05
+
+---
+
+
+--- thrift-0.17.0.orig/lib/c_glib/test/testthrifttestclient.cpp
++++ thrift-0.17.0/lib/c_glib/test/testthrifttestclient.cpp
+@@ -414,8 +414,8 @@ test_thrift_client (void)
+   assert (i64 == 12345);
+   assert (error == nullptr);
+ 
+-  assert (t_test_thrift_test_client_test_double (iface, &dbl, 5.6, &error) == TRUE);
+-  assert (dbl == 5.6);
++  assert (t_test_thrift_test_client_test_double (iface, &dbl, (double)5.6, &error) == TRUE);
++  assert (dbl == (double)5.6);
+   assert (error == nullptr);
+ 
+   xtruct_out = (TTestXtruct *) g_object_new (T_TEST_TYPE_XTRUCT, nullptr);
+--- thrift-0.17.0.orig/lib/c_glib/test/testthrifttestzlibclient.cpp
++++ thrift-0.17.0/lib/c_glib/test/testthrifttestzlibclient.cpp
+@@ -419,8 +419,8 @@ test_thrift_client (void)
+   assert (i64 == 12345);
+   assert (error == nullptr);
+ 
+-  assert (t_test_thrift_test_client_test_double (iface, &dbl, 5.6, &error) == TRUE);
+-  assert (dbl == 5.6);
++  assert (t_test_thrift_test_client_test_double (iface, &dbl, (double)5.6, &error) == TRUE);
++  assert (dbl == (double)5.6);
+   assert (error == nullptr);
+ 
+   xtruct_out = (TTestXtruct *) g_object_new (T_TEST_TYPE_XTRUCT, nullptr);

@@ -1,4 +1,146 @@
 #!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+export DEB_BUILD_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+# for Java install
+#export CLASSPATH=/usr/share/java/commons-codec.jar:/usr/share/java/commons-logging.jar:/usr/share/java/slf4j-simple.jar:/usr/share/java/slf4j-api.jar:/usr/share/java/servlet-api-3.1.jar:/usr/share/java/httpcore.jar:/usr/share/java/httpclient.jar:/usr/share/java/junit4.jar:/usr/share/java/ant-junit.jar:.
+
+export DEB_LDFLAGS_MAINT_STRIP = -Wl,-Bsymbolic-functions
+
+ifneq (,$(filter $(DEB_HOST_ARCH), armel mipsel))
+  export DEB_LDFLAGS_MAINT_APPEND += -Wl,--no-as-needed -latomic -Wl,--as-needed
+endif
+
+# Go 1.16 expects a go.mod file by default and thrift Go extension does not
+# contain that, let's turn it off for now.
+#export GO111MODULE=off
+
+# for Go install
+export DH_GOPKG=thrift
+export XDG_CACHE_HOME=$(CURDIR)/go-cache/
+
+# for Ruby install
+export DESTDIR=$(CURDIR)/debian/tmp/
+
+#export JAVA_PREFIX=/usr/share/java/
+export PERL_PREFIX=/usr/
+export INSTALLDIRS=vendor
+
+export QT_SELECT=qt5
+
+# Set install Perl locations
+ARCHLIB := $(shell perl -MConfig -e 'print $$Config{vendorarch}')
+
+RUBY_LIBDIR := $(shell ruby -rrbconfig -e'print RbConfig::CONFIG["vendordir"]')
+
+PYTHON3_VERSIONS = $(shell py3versions -r)
+
+override_dh_autoreconf:
+	$(CURDIR)/bootstrap.sh
+
+override_dh_auto_clean:
+	$(RM) -r $(CURDIR)/go-cache/
+	$(RM) $(CURDIR)/test/go/genmock.sh
+	$(RM) -r $(CURDIR)/lib/py/build/ \
+		$(CURDIR)/lib/py/thrift.egg-info/
+	$(RM) $(CURDIR)/test/go/src/github.com \
+		$(CURDIR)/test/go/src/golang.org/x/tools \
+		$(CURDIR)/test/go/src/golang.org/x/net \
+		$(CURDIR)/lib/go/test/gopath/src/golang.org/x/net \
+		$(CURDIR)/lib/go/test/gopath/src/github.com/golang/mock
+	[ ! -f Makefile ] || $(MAKE) clean
+	cd $(CURDIR)/lib/php/src/ext/thrift_protocol/ && phpize --clean
+	find $(CURDIR) \( -name Makefile -o -name Makefile.in \) -exec rm {} \;
+	find $(CURDIR) -name .dirstamp -exec rm {} \;
+	$(RM) aclocal/libtool.m4 aclocal/lt*
+	$(RM) aclocal.m4 config.guess config.h config.log config.status \
+		config.sub configure configure.scan depcomp libtool stamp-h1 \
+		lib/cpp/*.pc lib/c_glib/thrift_c_glib.pc
+	$(RM) lib/c_glib/src/thrift/config.h \
+		lib/c_glib/src/thrift/stamp-h3 \
+		lib/cpp/src/thrift/config.h \
+		lib/cpp/src/thrift/stamp-h2 \
+		lib/cpp/test/tests.xml
+	$(RM) autoscan.log config.hin
+#	jh_clean
+	# let dh clean
+	dh_auto_clean
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		--with-cpp --with-c_glib --with-php --with-php_extension \
+		--with-perl --without-python --with-py3 --without-java \
+		--without-nodejs --without-erlang --without-lua \
+		--with-go --with-ruby \
+		--with-qt4=no --with-qt5=yes \
+		--without-rust --without-kotlin \
+		--disable-tutorial
+
+override_dh_auto_build:
+#	mkdir -p $(CURDIR)/lib/java/build/lib/
+	# symlinks for Go build
+	mkdir -p $(CURDIR)/lib/go/test/gopath/src/
+	ln -s /usr/share/gocode/src/github.com \
+		$(CURDIR)/test/go/src/
+	mkdir -p $(CURDIR)/lib/go/test/gopath/src/golang.org/x/
+	ln -s /usr/share/gocode/src/golang.org/x/net \
+		$(CURDIR)/lib/go/test/gopath/src/golang.org/x/
+
+	dh_auto_build --no-parallel
+	set -ex; cd lib/py && for python in $(PYTHON3_VERSIONS); do \
+	  $$python setup.py build; \
+	done
+#	jh_build thrift.jar $(CURDIR)/lib/java/src/
+
+override_dh_auto_install:
+	dh_auto_install -- INSTALLDIRS=vendor
+	set -ex; cd lib/py && for python in $(PYTHON3_VERSIONS); do \
+	  $$python setup.py install --install-layout=deb --root=$(CURDIR)/debian/tmp; \
+	done
+#	jh_installlibs -plibthrift-java thrift.jar
+#	jh_installjavadoc
+#	jh_depends
+
+	find $(CURDIR)/debian/tmp/ -name \*.la -exec rm {} \;
+
+override_dh_missing:
+	dh_missing --list-missing
+
+override_dh_auto_test:
+	cd $(CURDIR)/lib/c_glib/test/ && \
+		$(MAKE) gen-c_glib/t_test_enum_test_types.h
+	mkdir -p $(CURDIR)/vendor/bin/
+	ln -s /usr/bin/phpunit $(CURDIR)/vendor/bin/
+	ln -s $(CURDIR)/lib/php/src/autoload.php $(CURDIR)/vendor/
+	touch $(CURDIR)/test/go/genmock.sh
+	mkdir -p $(CURDIR)/test/go/src/golang.org/x/
+	# symlinks for Go testing
+	ln -s /usr/share/gocode/src/golang.org/x/tools \
+		$(CURDIR)/test/go/src/golang.org/x/
+	ln -s /usr/share/gocode/src/golang.org/x/net/ \
+		$(CURDIR)/test/go/src/golang.org/x/
+	# GOPATH set automatically to $(CURDIR)/obj-$(DEB_BUILD_GNU_TYPE)
+	mkdir -p $(CURDIR)/obj-$(DEB_BUILD_GNU_TYPE)/src/github.com/apache/thrift/lib/
+	ln -s $(CURDIR)/lib/go \
+		$(CURDIR)/obj-$(DEB_BUILD_GNU_TYPE)/src/github.com/apache/thrift/lib/
+	mkdir -p $(CURDIR)/obj-$(DEB_BUILD_GNU_TYPE)/src/github.com/golang/
+	ln -s /usr/share/gocode/src/github.com/golang/mock \
+		$(CURDIR)/obj-$(DEB_BUILD_GNU_TYPE)/src/github.com/golang/
+	ln -s $(CURDIR)/lib/go/test/fuzz/gen-go/shared \
+		$(CURDIR)/obj-$(DEB_BUILD_GNU_TYPE)/src/
+	ln -s $(CURDIR)/lib/go/test/fuzz/gen-go/tutorial \
+		$(CURDIR)/obj-$(DEB_BUILD_GNU_TYPE)/src/
+	ln -s $(CURDIR)/test \
+		$(CURDIR)/obj-$(DEB_BUILD_GNU_TYPE)/src/github.com/apache/thrift/
+	dh_auto_test --no-parallel
 
 %:
-	dh $@
+	dh $@ --with python3,ruby,phpcomposer
+
+.PHONY: override_dh_autoreconf override_dh_auto_clean \
+	override_dh_auto_configure override_dh_auto_install \
+	override_dh_missing override_dh_auto_test

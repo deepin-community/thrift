@@ -1,0 +1,2 @@
+version=4
+https://thrift.apache.org/download .*/thrift-(\d\S*)@ARCHIVE_EXT@

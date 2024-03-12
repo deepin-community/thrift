@@ -1,0 +1,21 @@
+Description: Go mod can't be specified
+ Just delete those from Go invocation.
+Author: Laszlo Boszormenyi (GCS) <gcs@debian.org>
+Forwarded: no
+Last-Update: 2023-07-02
+
+---
+
+--- a/lib/go/test/fuzz/Makefile.am
++++ b/lib/go/test/fuzz/Makefile.am
+@@ -19,8 +19,8 @@
+ 
+ gopathfuzz: $(THRIFT) fuzz.go
+ 	$(THRIFT) -r --gen go:thrift_import=github.com/apache/thrift/lib/go/thrift$(COMPILER_EXTRAFLAG) ../../../../tutorial/tutorial.thrift
+-	cd gen-go/shared && go mod init shared
+-	cd gen-go/tutorial && go mod init tutorial
++#	cd gen-go/shared && go mod init shared
++#	cd gen-go/tutorial && go mod init tutorial
+ 	touch gopathfuzz
+ 
+ check: gopathfuzz

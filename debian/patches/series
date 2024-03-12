@@ -1,0 +1,15 @@
+node_is_nodejs.patch
+no_bundler_use.patch
+no_shmem.patch
+disable_failing_tests.patch
+#go_test_fail_on_busy_machine.patch
+no_composer_install.patch
+disable_php_testing.patch
+disable_locale_tests.patch
+no_go_race.patch
+missing_go_test.patch
+go_no_mod.patch
+disable_IPv4_only_tests.patch
+disable_non_existent_domain_tests.patch
+disable_failing_glib_tests.patch
+glib_double_type_i386.patch

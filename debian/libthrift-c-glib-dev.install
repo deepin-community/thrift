@@ -1,0 +1,4 @@
+usr/include/thrift/c_glib/
+usr/lib/${DEB_HOST_MULTIARCH}/libthrift_c_glib.a
+usr/lib/${DEB_HOST_MULTIARCH}/libthrift_c_glib.so
+usr/lib/${DEB_HOST_MULTIARCH}/pkgconfig/thrift_c_glib.pc
