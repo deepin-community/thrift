@@ -2,7 +2,7 @@ Source: thrift
 Section: devel
 Priority: optional
 Maintainer: Laszlo Boszormenyi (GCS) <gcs@debian.org>
-Build-Depends: debhelper-compat (= 13), dh-python,
+Build-Depends: dpkg-dev (>= 1.22.5), debhelper-compat (= 13), dh-python,
  dh-golang, golang-golang-x-net-dev,
  gem2deb,
  bison, flex,
@@ -12,10 +12,15 @@ Build-Depends: debhelper-compat (= 13), dh-python,
  qtbase5-dev,
  python3-all-dev, python3-six,
  golang-go, golang-github-golang-mock-dev,
+ pkg-php-tools (>= 1.14~), php-dev, phpunit, php-codesniffer,
  perl, libbit-vector-perl, libclass-accessor-perl, libtest-exception-perl,
 # openjdk-11-jdk, javahelper, maven-debian-helper (>= 1.5), ant (>= 1.7), ant-optional,
 # libhttpclient-java, libslf4j-java, libservlet3.1-java (>= 8),
 # nodejs, npm,
+ ruby-dev, ruby, bundler, rake,
+ ruby-daemons, ruby-diff-lcs, ruby-eventmachine, ruby-rspec-core,
+ ruby-rack, ruby-rack-test, ruby-rspec, ruby-rspec-expectations,
+ ruby-rspec-mocks, thin,
 # erlang-dev, erlang-eunit,
 # liblua5.2-dev,
 # google-mock
@@ -24,7 +29,10 @@ Standards-Version: 4.6.2
 Homepage: https://thrift.apache.org/
 XS-Go-Import-Path: github.com/apache/thrift/lib/go/thrift
 
-Package: libthrift-0.19.0
+Package: libthrift-0.19.0t64
+Provides: ${t64:Provides}
+Replaces: libthrift-0.19.0
+Breaks: libthrift-0.19.0 (<< ${source:Version})
 Section: libs
 Architecture: any
 Multi-Arch: same
@@ -42,7 +50,7 @@ Package: libthrift-dev
 Section: libdevel
 Architecture: any
 Multi-Arch: same
-Depends: libthrift-0.19.0 (= ${binary:Version}), ${misc:Depends}, pkg-config
+Depends: libthrift-0.19.0t64 (= ${binary:Version}), ${misc:Depends}, pkg-config
 Description: Thrift C++ library (development headers)
  Thrift is a software framework for the development of reliable and
  performant communication and data serialization.  It combines a software
@@ -52,7 +60,10 @@ Description: Thrift C++ library (development headers)
  This package contains the development libraries required for writing C++
  applications using Thrift.
 
-Package: libthrift-c-glib0
+Package: libthrift-c-glib0t64
+Provides: ${t64:Provides}
+Replaces: libthrift-c-glib0
+Breaks: libthrift-c-glib0 (<< ${source:Version})
 Section: libs
 Architecture: any
 Multi-Arch: same
@@ -70,7 +81,7 @@ Package: libthrift-c-glib-dev
 Section: libdevel
 Architecture: any
 Multi-Arch: same
-Depends: libthrift-c-glib0 (= ${binary:Version}), ${misc:Depends}, pkg-config
+Depends: libthrift-c-glib0t64 (= ${binary:Version}), ${misc:Depends}, pkg-config
 Description: Thrift glib library (development headers)
  Thrift is a software framework for the development of reliable and
  performant communication and data serialization.  It combines a software
@@ -134,20 +145,20 @@ Description: Python 3 library for Thrift
 # .
 # This package contains Javadoc HTML documentation for libthrift-java .
 #
-#Package: php-thrift
-#Section: php
-#Architecture: any
-#Depends: ${phpcomposer:Debian-require}, ${shlibs:Depends}, ${misc:Depends}
-#Provides: ${php:Provides}
-#Conflicts: php7.0-thrift, php7.2-thrift
-#Replaces: php7.0-thrift, php7.2-thrift
-#Description: PHP language support for Thrift
-# Thrift is a software framework for the development of reliable and
-# performant communication and data serialization. It combines a software
-# stack with code generation to build services that operate seamlessly
-# across a number of different development languages.
-# .
-# This package provides the PHP language support for Thrift.
+Package: php-thrift
+Section: php
+Architecture: any
+Depends: ${phpcomposer:Debian-require}, ${shlibs:Depends}, ${misc:Depends}
+Provides: ${php:Provides}
+Conflicts: php7.0-thrift, php7.2-thrift
+Replaces: php7.0-thrift, php7.2-thrift
+Description: PHP language support for Thrift
+ Thrift is a software framework for the development of reliable and
+ performant communication and data serialization. It combines a software
+ stack with code generation to build services that operate seamlessly
+ across a number of different development languages.
+ .
+ This package provides the PHP language support for Thrift.
 
 Package: libthrift-perl
 Section: perl
