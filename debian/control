@@ -24,9 +24,7 @@ Standards-Version: 4.6.2
 Homepage: https://thrift.apache.org/
 XS-Go-Import-Path: github.com/apache/thrift/lib/go/thrift
 
-Package: libthrift-0.19.0t64
-Provides: ${t64:Provides}
-Replaces: libthrift-0.19.0
+Package: libthrift-0.19.0
 Breaks: libthrift-0.19.0 (<< ${source:Version})
 Section: libs
 Architecture: any
@@ -45,7 +43,7 @@ Package: libthrift-dev
 Section: libdevel
 Architecture: any
 Multi-Arch: same
-Depends: libthrift-0.19.0t64 (= ${binary:Version}), ${misc:Depends}, pkg-config
+Depends: libthrift-0.19.0 (= ${binary:Version}), ${misc:Depends}, pkg-config
 Description: Thrift C++ library (development headers)
  Thrift is a software framework for the development of reliable and
  performant communication and data serialization.  It combines a software
@@ -55,10 +53,7 @@ Description: Thrift C++ library (development headers)
  This package contains the development libraries required for writing C++
  applications using Thrift.
 
-Package: libthrift-c-glib0t64
-Provides: ${t64:Provides}
-Replaces: libthrift-c-glib0
-Breaks: libthrift-c-glib0 (<< ${source:Version})
+Package: libthrift-c-glib0
 Section: libs
 Architecture: any
 Multi-Arch: same
@@ -76,7 +71,7 @@ Package: libthrift-c-glib-dev
 Section: libdevel
 Architecture: any
 Multi-Arch: same
-Depends: libthrift-c-glib0t64 (= ${binary:Version}), ${misc:Depends}, pkg-config
+Depends: libthrift-c-glib0 (= ${binary:Version}), ${misc:Depends}, pkg-config
 Description: Thrift glib library (development headers)
  Thrift is a software framework for the development of reliable and
  performant communication and data serialization.  It combines a software
